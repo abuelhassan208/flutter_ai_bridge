@@ -35,7 +35,7 @@
     },
     {
       "name": "ai_bridge_core",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "dependencies": [
         "equatable",
         "http",
@@ -61,7 +61,7 @@
     },
     {
       "name": "ai_bridge_genui",
-      "version": "0.0.1",
+      "version": "1.0.0",
       "dependencies": [
         "ai_bridge_core",
         "flutter"

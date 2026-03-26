@@ -2,7 +2,7 @@
 ///
 /// This package provides the components necessary to map LLM tool calls
 /// directly into dynamic, interactive Flutter Widgets.
-library ai_bridge_genui;
+library;
 
 export 'src/registry/genui_widget_registry.dart';
 export 'src/widgets/ai_generated_view.dart';
