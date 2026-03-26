@@ -8,12 +8,6 @@
       "languageVersion": "3.9"
     },
     {
-      "name": "ai_bridge_genui",
-      "rootUri": "../packages/ai_bridge_genui",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
-    },
-    {
       "name": "analyzer",
       "rootUri": "file:///Users/macintosh/.pub-cache/hosted/pub.dev/analyzer-8.4.1",
       "packageUri": "lib/",
@@ -618,6 +612,12 @@
       "rootUri": "../packages/ai_bridge_gemini",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "ai_bridge_genui",
+      "rootUri": "../packages/ai_bridge_genui",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
     },
     {
       "name": "ai_bridge_ollama",

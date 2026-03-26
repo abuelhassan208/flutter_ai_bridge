@@ -3,6 +3,7 @@
     "ai_bridge_claude",
     "ai_bridge_core",
     "ai_bridge_gemini",
+    "ai_bridge_genui",
     "ai_bridge_ollama",
     "ai_bridge_openai",
     "ai_bridge_storage_shared_prefs",
@@ -56,6 +57,18 @@
       "devDependencies": [
         "mocktail",
         "test"
+      ]
+    },
+    {
+      "name": "ai_bridge_genui",
+      "version": "0.0.1",
+      "dependencies": [
+        "ai_bridge_core",
+        "flutter"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
       ]
     },
     {
@@ -203,14 +216,6 @@
         "shared_preferences_platform_interface",
         "shared_preferences_web",
         "shared_preferences_windows"
-      ]
-    },
-    {
-      "name": "ai_bridge_genui",
-      "version": "0.0.1",
-      "dependencies": [
-        "ai_bridge_core",
-        "flutter"
       ]
     },
     {

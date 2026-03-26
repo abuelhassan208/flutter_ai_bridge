@@ -5,6 +5,7 @@
 <module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_claude/melos_ai_bridge_claude.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_claude/melos_ai_bridge_claude.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_core/melos_ai_bridge_core.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_core/melos_ai_bridge_core.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_gemini/melos_ai_bridge_gemini.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_gemini/melos_ai_bridge_gemini.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_genui/melos_ai_bridge_genui.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_genui/melos_ai_bridge_genui.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_ollama/melos_ai_bridge_ollama.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_ollama/melos_ai_bridge_ollama.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_openai/melos_ai_bridge_openai.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_openai/melos_ai_bridge_openai.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ai_bridge_storage_shared_prefs/melos_ai_bridge_storage_shared_prefs.iml" filepath="$PROJECT_DIR$/packages/ai_bridge_storage_shared_prefs/melos_ai_bridge_storage_shared_prefs.iml"/>

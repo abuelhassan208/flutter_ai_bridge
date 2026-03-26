@@ -61,3 +61,6 @@ scripts:
         - ai_bridge_gemini
         - ai_bridge_claude
         - ai_bridge_ollama
+
+  version:
+    fetchTags: false

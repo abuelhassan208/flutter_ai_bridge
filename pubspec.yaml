@@ -7,6 +7,7 @@ workspace:
   - packages/ai_bridge_claude
   - packages/ai_bridge_core
   - packages/ai_bridge_gemini
+  - packages/ai_bridge_genui
   - packages/ai_bridge_ollama
   - packages/ai_bridge_openai
   - packages/ai_bridge_storage_shared_prefs
