@@ -1,0 +1,20 @@
+name: ai_bridge_core
+description: Core abstractions and utilities for Flutter AI Bridge — unified AI provider interface, error handling, conversation management, smart routing, and cost control.
+version: 0.1.0
+homepage: https://github.com/your-org/flutter_ai_bridge
+repository: https://github.com/your-org/flutter_ai_bridge
+issue_tracker: https://github.com/your-org/flutter_ai_bridge/issues
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  equatable: ^2.0.5
+  http: ^1.2.0
+  meta: ^1.12.0
+  uuid: ^4.5.1
+
+dev_dependencies:
+  test: ^1.25.0
+  mocktail: ^1.0.0
+resolution: workspace

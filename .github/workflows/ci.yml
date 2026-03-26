@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  analyze_and_test:
+    name: "Dart Analyze & Test"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # We use Flutter SDK because some packages (ui, shared_prefs, example) require it,
+      # but we can run Dart commands on pure-Dart packages.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.0' # Flutter 3.24 corresponds to Dart 3.5.0
+          cache: true
+
+      - name: Install Melos
+        run: dart pub global activate melos ^7.5.0
+
+      # Melos bootstrap links the workspace together
+      - name: Melos Bootstrap
+        run: melos bootstrap
+
+      # Check formatting (fails if any file is not formatted correctly)
+      - name: Format Check
+        run: melos run format:check --no-select
+
+      # Run dart analyzer
+      - name: Analyze
+        run: melos run analyze --no-select
+
+      # Run all tests
+      - name: Test
+        run: melos run test --no-select

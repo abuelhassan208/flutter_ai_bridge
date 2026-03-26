@@ -1,0 +1,20 @@
+name: ai_bridge_gemini
+description: Google Gemini provider implementation for Flutter AI Bridge — Gemini 2.0 Flash, 1.5 Pro, embeddings, and function calling.
+version: 0.1.0
+publish_to: none  # Remove when switching ai_bridge_core to hosted dependency
+homepage: https://github.com/your-org/flutter_ai_bridge
+repository: https://github.com/your-org/flutter_ai_bridge
+issue_tracker: https://github.com/your-org/flutter_ai_bridge/issues
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  ai_bridge_core:
+    path: ../ai_bridge_core
+  http: ^1.2.0
+
+dev_dependencies:
+  test: ^1.25.0
+  mocktail: ^1.0.0
+resolution: workspace

@@ -1,0 +1,73 @@
+name: flutter_ai_bridge_workspace
+environment:
+  sdk: ^3.6.0
+dev_dependencies:
+  melos: ^7.5.0
+workspace:
+  - packages/ai_bridge_claude
+  - packages/ai_bridge_core
+  - packages/ai_bridge_gemini
+  - packages/ai_bridge_ollama
+  - packages/ai_bridge_openai
+  - packages/ai_bridge_storage_shared_prefs
+  - packages/ai_bridge_ui
+  - packages/flutter_ai_bridge
+  - packages/flutter_ai_bridge/example
+melos:
+  command:
+    bootstrap:
+      usePubspecOverrides: true
+
+  scripts:
+    analyze:
+      description: Run dart analyze across all pure-Dart packages
+      run: dart analyze . --fatal-infos
+      exec:
+        concurrency: 1
+      packageFilters:
+        ignore:
+          - ai_bridge_ui
+          - ai_bridge_storage_shared_prefs
+          - flutter_ai_bridge
+
+    test:
+      description: Run tests across all testable packages
+      run: dart test
+      exec:
+        concurrency: 1
+        failFast: true
+      packageFilters:
+        dirExists:
+          - test
+        ignore:
+          - ai_bridge_ui
+          - ai_bridge_storage_shared_prefs
+          - flutter_ai_bridge
+
+    format:check:
+      description: Check formatting (CI mode)
+      run: dart format --set-exit-if-changed .
+      exec:
+        concurrency: 5
+
+    format:
+      description: Fix formatting across all packages
+      run: dart format .
+      exec:
+        concurrency: 5
+
+    publish:dry:
+      description: Dry-run publish check
+      run: dart pub publish --dry-run
+      exec:
+        concurrency: 1
+      packageFilters:
+        ignore:
+          - ai_bridge_ui
+          - ai_bridge_storage_shared_prefs
+          - flutter_ai_bridge
+          - ai_bridge_openai
+          - ai_bridge_gemini
+          - ai_bridge_claude
+          - ai_bridge_ollama
+          - flutter_ai_bridge_example

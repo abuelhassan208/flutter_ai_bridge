@@ -1,0 +1,19 @@
+name: ai_bridge_ui
+description: Ready-made AI chat widgets for Flutter AI Bridge — chat interface, message bubbles, streaming text, and input bar.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ai_bridge_core:
+    path: ../ai_bridge_core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+resolution: workspace

@@ -1,0 +1,37 @@
+name: flutter_ai_bridge_example
+description: "Demonstrates how to use the flutter_ai_bridge package."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_ai_bridge:
+    path: ../
+  ai_bridge_openai:
+    path: ../../ai_bridge_openai
+  ai_bridge_gemini:
+    path: ../../ai_bridge_gemini
+  ai_bridge_claude:
+    path: ../../ai_bridge_claude
+  ai_bridge_ollama:
+    path: ../../ai_bridge_ollama
+  ai_bridge_genui:
+    path: ../../ai_bridge_genui
+  ai_bridge_core:
+    path: ../../ai_bridge_core
+  ai_bridge_storage_shared_prefs:
+    path: ../../ai_bridge_storage_shared_prefs
+  shared_preferences: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+resolution: workspace
