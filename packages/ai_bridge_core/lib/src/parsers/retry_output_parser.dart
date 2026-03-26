@@ -27,14 +27,16 @@ class RetryOutputParser<T> {
 
   /// Attempts to parse [initialOutput]. If it fails, uses [originalContext]
   /// to request the LLM to provide a corrected output.
-  Future<T> parseWithRetry(String initialOutput, List<AIMessage> originalContext) async {
+  Future<T> parseWithRetry(
+      String initialOutput, List<AIMessage> originalContext) async {
     String currentOutput = initialOutput;
 
     for (var i = 0; i < maxRetries; i++) {
       try {
         return parser.parse(currentOutput);
       } on FormatException catch (e) {
-        logger?.logTrace('⚠️ OutputParser failed on attempt ${i + 1}/$maxRetries. Retrying... Error: ${e.message}');
+        logger?.logTrace(
+            '⚠️ OutputParser failed on attempt ${i + 1}/$maxRetries. Retrying... Error: ${e.message}');
 
         // Construct a new context asking for a fix
         final retryContext = List<AIMessage>.from(originalContext)
@@ -48,7 +50,8 @@ class RetryOutputParser<T> {
     }
 
     // Final attempt outside the loop. If this fails, the exception propagates.
-    logger?.logError('RetryOutputParser exhausted all $maxRetries retries.', StateError('Dangling parse failure'));
+    logger?.logError('RetryOutputParser exhausted all $maxRetries retries.',
+        StateError('Dangling parse failure'));
     return parser.parse(currentOutput);
   }
 }

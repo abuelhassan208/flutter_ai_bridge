@@ -14,7 +14,8 @@ class AIGeneratedView extends StatelessWidget {
   final Map<String, dynamic> data;
 
   /// Optional builder triggered if the AI hallucinates an unregistered widget name.
-  final Widget Function(BuildContext context, String requestedName)? onUnknownWidget;
+  final Widget Function(BuildContext context, String requestedName)?
+      onUnknownWidget;
 
   /// Optional builder triggered if the target Widget fails to build (e.g., missing cast).
   final Widget Function(BuildContext context, Object error)? onError;

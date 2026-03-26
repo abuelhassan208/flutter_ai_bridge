@@ -19,7 +19,8 @@ class _AgentScreenState extends State<AgentScreen> {
 
   void _addLog(String message) {
     setState(() {
-      _logs.add('[${DateTime.now().toIso8601String().substring(11, 19)}] $message');
+      _logs.add(
+          '[${DateTime.now().toIso8601String().substring(11, 19)}] $message');
     });
   }
 
@@ -44,18 +45,21 @@ class _AgentScreenState extends State<AgentScreen> {
 
       // Initialize Providers
       final planningProvider = geminiKey.isNotEmpty
-          ? GeminiProvider(config: AIConfig(apiKey: geminiKey, model: 'gemini-2.0-flash'))
+          ? GeminiProvider(
+              config: AIConfig(apiKey: geminiKey, model: 'gemini-2.0-flash'))
           : OllamaProvider(config: AIConfig(apiKey: '', model: 'llama3.2'));
-          
+
       final writerProvider = openaiKey.isNotEmpty
-          ? OpenAIProvider(config: AIConfig(apiKey: openaiKey, model: 'gpt-4o-mini'))
+          ? OpenAIProvider(
+              config: AIConfig(apiKey: openaiKey, model: 'gpt-4o-mini'))
           : OllamaProvider(config: AIConfig(apiKey: '', model: 'llama3.2'));
 
       _addLog('🛠️ Initializing Agents...');
-      
+
       final plannerAgent = ConversationalAgent(
         name: 'TravelPlanner',
-        systemPrompt: 'You are an expert travel planner. Given a destination, provide a bulleted list of essential activities. Do not write intros or paragraphs. Just the list.',
+        systemPrompt:
+            'You are an expert travel planner. Given a destination, provide a bulleted list of essential activities. Do not write intros or paragraphs. Just the list.',
         provider: planningProvider,
         outputParser: (res, ctx) {
           ctx.write('itinerary', res);
@@ -65,7 +69,8 @@ class _AgentScreenState extends State<AgentScreen> {
 
       final marketingAgent = ConversationalAgent(
         name: 'MarketingWriter',
-        systemPrompt: 'You write exciting travel blog posts. Read the itinerary provided in the prompt and turn it into an engaging, 2-paragraph social media post with emojis.',
+        systemPrompt:
+            'You write exciting travel blog posts. Read the itinerary provided in the prompt and turn it into an engaging, 2-paragraph social media post with emojis.',
         provider: writerProvider,
         outputParser: (res, ctx) {
           ctx.write('final_copy', res);
@@ -84,14 +89,14 @@ class _AgentScreenState extends State<AgentScreen> {
 
       _addLog('🚀 Pipeline Execution Started');
       final stopwatch = Stopwatch()..start();
-      
+
       final context = await pipeline.execute();
-      
+
       stopwatch.stop();
       _addLog('🎉 Pipeline Finished in ${stopwatch.elapsedMilliseconds}ms');
-      
-      _addLog('\n=== FINAL COPY ===\n${context.read<String>('final_copy') ?? 'No output.'}\n==================\n');
 
+      _addLog(
+          '\n=== FINAL COPY ===\n${context.read<String>('final_copy') ?? 'No output.'}\n==================\n');
     } catch (e) {
       _addLog('❌ Error: $e');
     } finally {
@@ -135,7 +140,8 @@ class _AgentScreenState extends State<AgentScreen> {
                         height: 16,
                         child: CircularProgressIndicator(strokeWidth: 2))
                     : const Icon(Icons.play_arrow),
-                label: Text(_isRunning ? 'Running Pipeline...' : 'Start Agents'),
+                label:
+                    Text(_isRunning ? 'Running Pipeline...' : 'Start Agents'),
               ),
             ),
             const SizedBox(height: 16),
@@ -156,7 +162,8 @@ class _AgentScreenState extends State<AgentScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: Text(
                         _logs[index],
-                        style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+                        style: const TextStyle(
+                            fontFamily: 'monospace', fontSize: 13),
                       ),
                     );
                   },

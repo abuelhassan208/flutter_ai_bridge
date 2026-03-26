@@ -18,7 +18,7 @@ class _GenUIScreenState extends State<GenUIScreen> {
   late final GenUIWidgetRegistry _registry;
   ConversationalAgent? _agent;
   late final AgentContext _context;
-  
+
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -30,25 +30,33 @@ class _GenUIScreenState extends State<GenUIScreen> {
 
   void _setupRegistry() {
     _registry = GenUIWidgetRegistry();
-    
+
     // 1. Register a dynamic Weather Card
     _registry.register(RegisteredGenUIWidget(
       name: 'weather_card',
-      description: 'Displays a beautiful daily weather forecast for a specific city.',
+      description:
+          'Displays a beautiful daily weather forecast for a specific city.',
       parametersSchema: {
         'type': 'object',
         'properties': {
           'city': {'type': 'string'},
           'temperature_celsius': {'type': 'number'},
-          'condition': {'type': 'string', 'enum': ['Sunny', 'Rainy', 'Cloudy', 'Snow']},
+          'condition': {
+            'type': 'string',
+            'enum': ['Sunny', 'Rainy', 'Cloudy', 'Snow']
+          },
         },
         'required': ['city', 'temperature_celsius', 'condition'],
       },
       builder: (context, data) {
         final condition = data['condition'] as String;
-        final icon = condition == 'Sunny' ? Icons.wb_sunny : condition == 'Rainy' ? Icons.water_drop : Icons.cloud;
+        final icon = condition == 'Sunny'
+            ? Icons.wb_sunny
+            : condition == 'Rainy'
+                ? Icons.water_drop
+                : Icons.cloud;
         final color = condition == 'Sunny' ? Colors.orange : Colors.blueGrey;
-        
+
         return Card(
           elevation: 4,
           color: color.shade100,
@@ -62,7 +70,8 @@ class _GenUIScreenState extends State<GenUIScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data['city'] as String, style: Theme.of(context).textTheme.titleLarge),
+                    Text(data['city'] as String,
+                        style: Theme.of(context).textTheme.titleLarge),
                     Text('${data['temperature_celsius']}°C - $condition'),
                   ],
                 ),
@@ -72,7 +81,7 @@ class _GenUIScreenState extends State<GenUIScreen> {
         );
       },
     ));
-    
+
     // 2. Register an Interactive Flight Ticket
     _registry.register(RegisteredGenUIWidget(
       name: 'flight_ticket',
@@ -91,12 +100,15 @@ class _GenUIScreenState extends State<GenUIScreen> {
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 8),
           color: Colors.blue.shade50,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: ListTile(
             leading: const Icon(Icons.flight_takeoff, color: Colors.blue),
             title: Text('${data['from']} ➔ ${data['to']}'),
             subtitle: Text(data['airline'] as String),
-            trailing: Text('\$${data['price']}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            trailing: Text('\$${data['price']}',
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           ),
         );
       },
@@ -105,22 +117,25 @@ class _GenUIScreenState extends State<GenUIScreen> {
 
   Future<void> _setupAgent() async {
     _context = AgentContext();
-    
+
     final prefs = await SharedPreferences.getInstance();
     final openaiKey = prefs.getString('openai_key') ?? '';
     final geminiKey = prefs.getString('gemini_key') ?? '';
-    
+
     // Default to Gemini since it handles tools extremely well, but fallback
-    final provider = geminiKey.isNotEmpty 
-        ? GeminiProvider(config: AIConfig(apiKey: geminiKey, model: 'gemini-2.0-flash'))
-        : (openaiKey.isNotEmpty 
-            ? OpenAIProvider(config: AIConfig(apiKey: openaiKey, model: 'gpt-4o-mini'))
+    final provider = geminiKey.isNotEmpty
+        ? GeminiProvider(
+            config: AIConfig(apiKey: geminiKey, model: 'gemini-2.0-flash'))
+        : (openaiKey.isNotEmpty
+            ? OpenAIProvider(
+                config: AIConfig(apiKey: openaiKey, model: 'gpt-4o-mini'))
             : OllamaProvider(config: AIConfig(apiKey: '', model: 'llama3.2')));
-            
+
     setState(() {
       _agent = ConversationalAgent(
         name: 'GenUIAssistant',
-        systemPrompt: 'You are an advanced UI assistant. When the user asks for weather or flights, ALWAYS use the provided render_ui_widget tool instead of describing it in text. Keep text responses short and mostly rely on the UI.',
+        systemPrompt:
+            'You are an advanced UI assistant. When the user asks for weather or flights, ALWAYS use the provided render_ui_widget tool instead of describing it in text. Keep text responses short and mostly rely on the UI.',
         provider: provider,
         tools: [GenUITool(registry: _registry)],
       );
@@ -145,7 +160,7 @@ class _GenUIScreenState extends State<GenUIScreen> {
     if (_agent == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-    
+
     final messages = _context.conversation.messages;
     // ... rest of the build method
     return Scaffold(
@@ -158,7 +173,7 @@ class _GenUIScreenState extends State<GenUIScreen> {
               itemCount: messages.length,
               itemBuilder: (context, index) {
                 final msg = messages[index];
-                
+
                 // If it's a user message
                 if (msg.role == AIRole.user) {
                   return Align(
@@ -166,12 +181,15 @@ class _GenUIScreenState extends State<GenUIScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 8, left: 40),
-                      decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(16)),
-                      child: Text(msg.content, style: const TextStyle(color: Colors.white)),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Text(msg.content,
+                          style: const TextStyle(color: Colors.white)),
                     ),
                   );
                 }
-                
+
                 // If it has GenUI Tool Calls, render the Widget natively
                 if (msg.toolCalls?.isNotEmpty == true) {
                   return Column(
@@ -182,16 +200,20 @@ class _GenUIScreenState extends State<GenUIScreen> {
                         return AIGeneratedView(
                           registry: _registry,
                           widgetName: args['widget_name'] as String? ?? '',
-                          data: args['widget_data'] as Map<String, dynamic>? ?? {},
-                          onUnknownWidget: (ctx, name) => Text('Error: AI tried to render unknown widget: $name', style: const TextStyle(color: Colors.red)),
-                          onError: (ctx, e) => Text('UI Rendering Error: $e', style: const TextStyle(color: Colors.red)),
+                          data: args['widget_data'] as Map<String, dynamic>? ??
+                              {},
+                          onUnknownWidget: (ctx, name) => Text(
+                              'Error: AI tried to render unknown widget: $name',
+                              style: const TextStyle(color: Colors.red)),
+                          onError: (ctx, e) => Text('UI Rendering Error: $e',
+                              style: const TextStyle(color: Colors.red)),
                         );
                       }
                       return Text('Unknown Tool Called: ${call.name}');
                     }).toList(),
                   );
                 }
-                
+
                 // Otherwise it's normal assistant text
                 if (msg.role == AIRole.assistant && msg.content.isNotEmpty) {
                   return Align(
@@ -199,12 +221,14 @@ class _GenUIScreenState extends State<GenUIScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 8, right: 40),
-                      decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(16)),
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(16)),
                       child: Text(msg.content),
                     ),
                   );
                 }
-                
+
                 return const SizedBox.shrink();
               },
             ),
@@ -237,4 +261,3 @@ class _GenUIScreenState extends State<GenUIScreen> {
     );
   }
 }
-

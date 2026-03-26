@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 /// A function that builds a Flutter Widget from a JSON data map.
-typedef GenUIWidgetBuilder = Widget Function(BuildContext context, Map<String, dynamic> data);
+typedef GenUIWidgetBuilder = Widget Function(
+    BuildContext context, Map<String, dynamic> data);
 
 /// Represents a Flutter widget that the AI can generate dynamically.
 class RegisteredGenUIWidget {

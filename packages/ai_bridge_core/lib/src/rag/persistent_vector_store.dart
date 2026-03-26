@@ -11,10 +11,10 @@ typedef VectorLoader = Future<String?> Function();
 /// For example, writing to a file using dart:io or shared_preferences.
 typedef VectorSaver = Future<void> Function(String json);
 
-/// An extension of [InMemoryVectorStore] that persists documents and their 
+/// An extension of [InMemoryVectorStore] that persists documents and their
 /// embeddings locally using user-provided loader and saver callbacks.
 ///
-/// This provides a pure-Dart Local RAG Vector Database capable of 
+/// This provides a pure-Dart Local RAG Vector Database capable of
 /// running anywhere without native SQLite dependencies.
 class PersistentVectorStore extends InMemoryVectorStore {
   final VectorLoader loader;
@@ -30,7 +30,7 @@ class PersistentVectorStore extends InMemoryVectorStore {
   /// Must be called to load existing data before searching or adding.
   Future<void> init() async {
     if (_isInit) return;
-    
+
     final rawJson = await loader();
     if (rawJson != null && rawJson.trim().isNotEmpty) {
       final List<dynamic> jsonList = jsonDecode(rawJson);
@@ -51,7 +51,8 @@ class PersistentVectorStore extends InMemoryVectorStore {
   }
 
   @override
-  Future<List<AIDocument>> similaritySearch(String query, {int limit = 4}) async {
+  Future<List<AIDocument>> similaritySearch(String query,
+      {int limit = 4}) async {
     if (!_isInit) await init();
     return super.similaritySearch(query, limit: limit);
   }

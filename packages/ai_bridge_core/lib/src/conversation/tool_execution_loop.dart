@@ -37,7 +37,7 @@ class ToolExecutionLoop {
 
       for (final tc in response.toolCalls!) {
         final tool = _findToolByName(tools, tc.name);
-        
+
         logger?.logToolCall(tc.name, tc.arguments);
 
         String result;
@@ -49,7 +49,8 @@ class ToolExecutionLoop {
             logger?.logError('Tool ${tc.name} execution failed', e, st);
           }
         } else {
-          result = 'Error: Tool ${tc.name} not found or has no execute function.';
+          result =
+              'Error: Tool ${tc.name} not found or has no execute function.';
         }
 
         logger?.logToolResult(tc.name, result);

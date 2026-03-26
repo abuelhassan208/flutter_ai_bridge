@@ -35,7 +35,8 @@ class ConsoleAILogger implements AILogger {
 
   @override
   void logToolResult(String toolName, String result) {
-    final snippet = result.length > 50 ? '${result.substring(0, 50)}...' : result;
+    final snippet =
+        result.length > 50 ? '${result.substring(0, 50)}...' : result;
     developer.log('📥 [TOOL RESULT] $toolName -> $snippet', name: 'AIBridge');
   }
 

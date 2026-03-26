@@ -37,7 +37,8 @@ class ConversationalAgent implements AIAgent {
   Future<void> execute(AgentContext context,
       {required String taskInput}) async {
     final stopwatch = Stopwatch()..start();
-    context.logger.logAgentStart(name, context.conversation.id, contextData: {'task': taskInput});
+    context.logger.logAgentStart(name, context.conversation.id,
+        contextData: {'task': taskInput});
 
     try {
       // 1. Prepare system instruction
@@ -71,13 +72,15 @@ class ConversationalAgent implements AIAgent {
       if (outputParser != null) {
         outputParser!(finalResponse.content, context);
       }
-      
+
       stopwatch.stop();
-      context.logger.logAgentEnd(name, context.conversation.id, success: true, duration: stopwatch.elapsed);
+      context.logger.logAgentEnd(name, context.conversation.id,
+          success: true, duration: stopwatch.elapsed);
     } catch (e, st) {
       stopwatch.stop();
       context.logger.logError('Agent $name failed on task.', e, st);
-      context.logger.logAgentEnd(name, context.conversation.id, success: false, duration: stopwatch.elapsed);
+      context.logger.logAgentEnd(name, context.conversation.id,
+          success: false, duration: stopwatch.elapsed);
       rethrow;
     }
   }

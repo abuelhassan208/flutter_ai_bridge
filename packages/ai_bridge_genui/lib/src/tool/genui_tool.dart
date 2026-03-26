@@ -1,8 +1,8 @@
 import 'package:ai_bridge_core/ai_bridge_core.dart';
 import '../registry/genui_widget_registry.dart';
 
-/// Converts a [GenUIWidgetRegistry] into a standard [AITool] that 
-/// the LLM can "call" to render UI. 
+/// Converts a [GenUIWidgetRegistry] into a standard [AITool] that
+/// the LLM can "call" to render UI.
 class GenUITool extends AITool {
   GenUITool({required GenUIWidgetRegistry registry})
       : super(

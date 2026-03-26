@@ -18,7 +18,8 @@ class MockAgentProvider implements AIProvider {
   final String Function(String prompt)? customResponseBuilder;
   final String defaultResponse;
 
-  MockAgentProvider({this.defaultResponse = 'success', this.customResponseBuilder});
+  MockAgentProvider(
+      {this.defaultResponse = 'success', this.customResponseBuilder});
 
   @override
   Future<AIResponse> complete(
@@ -28,7 +29,9 @@ class MockAgentProvider implements AIProvider {
     List<AITool>? tools,
   }) async {
     final prompt = messages.last.content;
-    final r = customResponseBuilder != null ? customResponseBuilder!(prompt) : defaultResponse;
+    final r = customResponseBuilder != null
+        ? customResponseBuilder!(prompt)
+        : defaultResponse;
     return AIResponse(
       content: r,
       usage: const AIUsage(promptTokens: 10, completionTokens: 10),
@@ -66,7 +69,8 @@ class MockAgentProvider implements AIProvider {
 void main() {
   group('AIAgent and Pipelines', () {
     test('ConversationalAgent executes and updates AgentContext', () async {
-      final mock = MockAgentProvider(defaultResponse: 'I am a poetry agent. Here is a poem.');
+      final mock = MockAgentProvider(
+          defaultResponse: 'I am a poetry agent. Here is a poem.');
       final context = AgentContext();
 
       final agent = ConversationalAgent(
@@ -87,7 +91,8 @@ void main() {
 
     test('AIPipeline runs sequentially and shares context', () async {
       final writerMock = MockAgentProvider(defaultResponse: 'Article body.');
-      final editorMock = MockAgentProvider(defaultResponse: 'Edited article body.');
+      final editorMock =
+          MockAgentProvider(defaultResponse: 'Edited article body.');
 
       final writer = ConversationalAgent(
         name: 'Writer',
@@ -112,7 +117,8 @@ void main() {
 
       expect(context.read('draft'), 'Article body.');
       expect(context.read('final_copy'), 'Edited article body.');
-      expect(context.conversation.messages.length, 6); // 2 tasks = 2 x (system, user, assistant)
+      expect(context.conversation.messages.length,
+          6); // 2 tasks = 2 x (system, user, assistant)
     });
 
     test('ParallelPipeline runs concurrently', () async {
@@ -143,15 +149,23 @@ void main() {
       expect(context.read('audio'), 'Audio generated.');
     });
 
-    test('SupervisorAgent routes intelligently based on LLM response', () async {
+    test('SupervisorAgent routes intelligently based on LLM response',
+        () async {
       // Mock supervisor JSON response that selects "BackendDev"
       final supervisorMock = MockAgentProvider(
-          defaultResponse: '{"selected_agent": "BackendDev", "adjusted_task": "Write Nodejs API"}');
-      final backendMock = MockAgentProvider(defaultResponse: 'Express router created.');
-      final frontendMock = MockAgentProvider(defaultResponse: 'React component created.');
+          defaultResponse:
+              '{"selected_agent": "BackendDev", "adjusted_task": "Write Nodejs API"}');
+      final backendMock =
+          MockAgentProvider(defaultResponse: 'Express router created.');
+      final frontendMock =
+          MockAgentProvider(defaultResponse: 'React component created.');
 
-      final backendDev = ConversationalAgent(name: 'BackendDev', systemPrompt: 'Node dev', provider: backendMock);
-      final frontendDev = ConversationalAgent(name: 'FrontendDev', systemPrompt: 'React dev', provider: frontendMock);
+      final backendDev = ConversationalAgent(
+          name: 'BackendDev', systemPrompt: 'Node dev', provider: backendMock);
+      final frontendDev = ConversationalAgent(
+          name: 'FrontendDev',
+          systemPrompt: 'React dev',
+          provider: frontendMock);
 
       final supervisor = SupervisorAgent(
         name: 'TechLead',
@@ -160,12 +174,14 @@ void main() {
       );
 
       final context = AgentContext();
-      await supervisor.execute(context, taskInput: 'Create an API endpoint for users.');
+      await supervisor.execute(context,
+          taskInput: 'Create an API endpoint for users.');
 
       expect(context.read('supervisor_decision'), 'BackendDev');
-      
+
       // Since it chose BackendDev, the active conversation should contain backendDev's responses
-      expect(context.conversation.messages.last.content, 'Express router created.');
+      expect(context.conversation.messages.last.content,
+          'Express router created.');
     });
   });
 }

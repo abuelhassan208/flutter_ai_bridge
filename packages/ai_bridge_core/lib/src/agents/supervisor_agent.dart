@@ -38,7 +38,8 @@ class SupervisorAgent implements AIAgent {
     for (final agent in agents) {
       buffer.writeln('- ${agent.name}: ${agent.systemPrompt}');
     }
-    buffer.writeln('You must respond ONLY with a valid JSON object matching this schema: {"selected_agent": "agent_name", "adjusted_task": "task_description"}');
+    buffer.writeln(
+        'You must respond ONLY with a valid JSON object matching this schema: {"selected_agent": "agent_name", "adjusted_task": "task_description"}');
     return buffer.toString();
   }
 
@@ -46,7 +47,8 @@ class SupervisorAgent implements AIAgent {
   Future<void> execute(AgentContext context,
       {required String taskInput}) async {
     final stopwatch = Stopwatch()..start();
-    context.logger.logAgentStart(name, context.conversation.id, contextData: {'task': taskInput});
+    context.logger.logAgentStart(name, context.conversation.id,
+        contextData: {'task': taskInput});
 
     final parser = JsonOutputParser();
     final retryParser = RetryOutputParser<Map<String, dynamic>>(
@@ -65,7 +67,7 @@ class SupervisorAgent implements AIAgent {
 
     try {
       final response = await provider.complete(decisionMessages);
-      
+
       context.logger.logTokenUsage(
         provider.name,
         provider.model,
@@ -73,8 +75,9 @@ class SupervisorAgent implements AIAgent {
         completionTokens: response.usage.completionTokens,
         latency: response.latency,
       );
-      
-      final jsonResponse = await retryParser.parseWithRetry(response.content, decisionMessages);
+
+      final jsonResponse =
+          await retryParser.parseWithRetry(response.content, decisionMessages);
 
       final selectedName = jsonResponse['selected_agent'] as String?;
       final adjustedTask =
@@ -83,30 +86,35 @@ class SupervisorAgent implements AIAgent {
       if (selectedName != null) {
         final agent = _findAgentByName(selectedName);
         if (agent != null) {
-          context.logger.logTrace('🔀 Supervisor [$name] routing to [$selectedName] with task: $adjustedTask');
+          context.logger.logTrace(
+              '🔀 Supervisor [$name] routing to [$selectedName] with task: $adjustedTask');
           // Pass the chosen sub-agent the task
           context.write('supervisor_decision', selectedName);
           await agent.execute(context, taskInput: adjustedTask);
-          
+
           stopwatch.stop();
-          context.logger.logAgentEnd(name, context.conversation.id, duration: stopwatch.elapsed);
+          context.logger.logAgentEnd(name, context.conversation.id,
+              duration: stopwatch.elapsed);
           return;
         }
       }
 
       // Fallback if parsing fails or agent not found
-      context.logger.logError('Supervisor failed to find agent: $selectedName', StateError('Agent not found'));
+      context.logger.logError('Supervisor failed to find agent: $selectedName',
+          StateError('Agent not found'));
       context.conversation.addMessage(AIMessage.assistant(
           'Supervisor failed to route task "$taskInput". Output: ${response.content}'));
-          
+
       stopwatch.stop();
-      context.logger.logAgentEnd(name, context.conversation.id, success: false, duration: stopwatch.elapsed);
+      context.logger.logAgentEnd(name, context.conversation.id,
+          success: false, duration: stopwatch.elapsed);
     } catch (e, st) {
       stopwatch.stop();
       context.logger.logError('Supervisor $name encountered an error', e, st);
       context.conversation
           .addMessage(AIMessage.assistant('Supervisor Error: $e'));
-      context.logger.logAgentEnd(name, context.conversation.id, success: false, duration: stopwatch.elapsed);
+      context.logger.logAgentEnd(name, context.conversation.id,
+          success: false, duration: stopwatch.elapsed);
     }
   }
 

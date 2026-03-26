@@ -16,7 +16,8 @@ class JsonOutputParser implements OutputParser<Map<String, dynamic>> {
       final cleanText = _stripMarkdown(text);
       return jsonDecode(cleanText) as Map<String, dynamic>;
     } catch (e) {
-      throw FormatException('Failed to parse JSON from response. Error: $e\n\nRaw Text:\n$text');
+      throw FormatException(
+          'Failed to parse JSON from response. Error: $e\n\nRaw Text:\n$text');
     }
   }
 
