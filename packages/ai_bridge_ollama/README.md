@@ -1,39 +1,27 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# ai_bridge_ollama
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Local Ollama provider for the [ai_bridge_core](https://pub.dev/packages/ai_bridge_core) framework — run AI models locally for offline/edge computing using Llama, Mistral, and more.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Full Ollama Chat API with streaming
+- Tool/Function calling support
+- Embeddings via local models
+- Custom `baseUrl` for remote Ollama instances
+- Image attachment support
+- Zero cloud dependency — fully offline Edge AI
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+import 'package:ai_bridge_ollama/ai_bridge_ollama.dart';
+
+final provider = OllamaProvider(
+  config: AIConfig(apiKey: '', model: 'llama3.2'),
+);
+final response = await provider.complete([AIMessage.user('Hello!')]);
 ```
 
-## Additional information
+## License
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+MIT

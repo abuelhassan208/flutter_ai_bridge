@@ -1,39 +1,31 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# ai_bridge_genui
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Server-Driven Generative UI framework for [ai_bridge_core](https://pub.dev/packages/ai_bridge_core) — dynamically render native Flutter widgets from LLM tool calls using strict JSON Schema.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- `GenUIWidgetRegistry` — map string names to Flutter `WidgetBuilder` functions
+- `GenUITool` — exposes the widget registry to the LLM as a callable tool with JSON Schema validation
+- `AIGeneratedView` — intercepts AI tool calls and renders native Flutter widgets inline
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+import 'package:ai_bridge_genui/ai_bridge_genui.dart';
+
+// Register your widgets
+final registry = GenUIWidgetRegistry();
+registry.register(RegisteredGenUIWidget(
+  name: 'weather_card',
+  description: 'A weather forecast card',
+  parametersSchema: {'type': 'object', 'properties': {'city': {'type': 'string'}}},
+  builder: (ctx, data) => Text('Weather in ${data["city"]}'),
+));
+
+// Give the registry to your agent as a tool
+final tool = GenUITool(registry: registry);
 ```
 
-## Additional information
+## License
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+MIT

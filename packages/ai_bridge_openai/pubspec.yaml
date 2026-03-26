@@ -1,17 +1,15 @@
 name: ai_bridge_openai
 description: OpenAI provider implementation for Flutter AI Bridge — GPT-4o, GPT-3.5, embeddings, Whisper STT, and TTS support.
 version: 0.1.0
-publish_to: none  # Remove when switching ai_bridge_core to hosted dependency
-homepage: https://github.com/your-org/flutter_ai_bridge
-repository: https://github.com/your-org/flutter_ai_bridge
-issue_tracker: https://github.com/your-org/flutter_ai_bridge/issues
+homepage: https://github.com/aboualvixx/flutter_ai_bridge
+repository: https://github.com/aboualvixx/flutter_ai_bridge
+issue_tracker: https://github.com/aboualvixx/flutter_ai_bridge/issues
 
 environment:
   sdk: ^3.5.0
 
 dependencies:
-  ai_bridge_core:
-    path: ../ai_bridge_core
+  ai_bridge_core: ^1.0.0
   http: ^1.2.0
 
 dev_dependencies:

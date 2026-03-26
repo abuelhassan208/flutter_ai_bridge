@@ -1,5 +1,5 @@
 name: flutter_ai_bridge
-repository: https://github.com/your-org/flutter_ai_bridge
+repository: https://github.com/aboualvixx/flutter_ai_bridge
 
 packages:
   - packages/*

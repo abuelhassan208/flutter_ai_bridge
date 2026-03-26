@@ -1,7 +1,9 @@
 name: flutter_ai_bridge
 description: A unified Flutter package for AI integration — supports OpenAI, Gemini, Claude with smart routing, conversation management, cost control, and ready-made UI widgets.
 version: 0.1.0
-publish_to: none
+homepage: https://github.com/aboualvixx/flutter_ai_bridge
+repository: https://github.com/aboualvixx/flutter_ai_bridge
+issue_tracker: https://github.com/aboualvixx/flutter_ai_bridge/issues
 
 environment:
   sdk: ^3.5.0
@@ -10,8 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ai_bridge_core:
-    path: ../ai_bridge_core
-  ai_bridge_ui:
-    path: ../ai_bridge_ui
+  ai_bridge_core: ^1.0.0
+  ai_bridge_ui: ^0.1.0
 resolution: workspace

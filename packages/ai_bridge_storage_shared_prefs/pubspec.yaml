@@ -1,7 +1,6 @@
 name: ai_bridge_storage_shared_prefs
 description: "A SharedPreferences implementation of StorageProvider for flutter_ai_bridge persistence."
 version: 0.1.0
-publish_to: none
 
 environment:
   sdk: ^3.6.0
@@ -11,8 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.2.0
-  ai_bridge_core:
-    path: ../ai_bridge_core
+  ai_bridge_core: ^1.0.0
 
 dev_dependencies:
   flutter_test:

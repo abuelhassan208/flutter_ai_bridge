@@ -1,0 +1,30 @@
+# Dart/Flutter
+.dart_tool/
+.packages
+build/
+pubspec.lock
+pubspec_overrides.yaml
+*.iml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
+
+# Generated docs
+doc/api/
+
+# Melos
+.melos/
+
+# Flutter example build artifacts
+packages/flutter_ai_bridge/example/build/
+packages/flutter_ai_bridge/example/ios/Pods/
+packages/flutter_ai_bridge/example/android/.gradle/
+packages/flutter_ai_bridge/example/.dart_tool/
+
+# Dummy remote
+../dummy_remote.git

@@ -1,9 +1,9 @@
 name: ai_bridge_genui
 description: "Server-Driven Generative UI framework for flutter_ai_bridge. Dynamically render native Flutter widgets from LLM tool calls using strict JSON Schema."
 version: 1.0.0
-homepage: https://github.com/your-org/flutter_ai_bridge
-repository: https://github.com/your-org/flutter_ai_bridge/tree/main/packages/ai_bridge_genui
-issue_tracker: https://github.com/your-org/flutter_ai_bridge/issues
+homepage: https://github.com/aboualvixx/flutter_ai_bridge
+repository: https://github.com/aboualvixx/flutter_ai_bridge/tree/main/packages/ai_bridge_genui
+issue_tracker: https://github.com/aboualvixx/flutter_ai_bridge/issues
 environment:
   sdk: ^3.6.0
   flutter: ">=3.24.0"
