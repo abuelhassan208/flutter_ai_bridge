@@ -22,6 +22,12 @@ final provider = OllamaProvider(
 final response = await provider.complete([AIMessage.user('Hello!')]);
 ```
 
+## Comprehensive Examples
+
+See the **[example/](example/)** directory for complete, copy-pasteable usage examples, including:
+- Local offline completions and streaming
+- Edge AI fallback pattern with AIRouter
+
 ## License
 
 MIT

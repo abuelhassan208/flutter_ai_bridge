@@ -19,6 +19,10 @@ await storage.saveConversation(conversation);
 final loaded = await storage.loadConversation('conv-id');
 ```
 
+## Comprehensive Examples
+
+See the **[example/](example/)** directory for complete, copy-pasteable usage examples on how to persist conversations.
+
 ## License
 
 MIT

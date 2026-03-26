@@ -26,6 +26,13 @@ registry.register(RegisteredGenUIWidget(
 final tool = GenUITool(registry: registry);
 ```
 
+## Comprehensive Examples
+
+See the **[example/](example/)** directory for a complete, copy-pasteable usage example, including:
+- Registering widgets with JSON Schema
+- Initializing the GenUITool
+- Wiring up the AIGeneratedView fallback
+
 ## License
 
 MIT

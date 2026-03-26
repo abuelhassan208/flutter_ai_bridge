@@ -21,6 +21,12 @@ final provider = ClaudeProvider(
 final response = await provider.complete([AIMessage.user('Hello!')]);
 ```
 
+## Comprehensive Examples
+
+See the **[example/](example/)** directory for complete, copy-pasteable usage examples, including:
+- Basic and streaming completions
+- Tool use and parsing
+
 ## License
 
 MIT

@@ -130,6 +130,13 @@ final text = await openai.speechToText(audioBytes, mimeType: 'audio/mp3');
 final audioBytes = await openai.textToSpeech('Hello world', voice: 'nova');
 ```
 
+## Comprehensive Examples
+
+See the **[example/](example/)** directory for complete, copy-pasteable usage examples, including:
+- Basic and streaming completions
+- Tool and function calling
+- Feature-specific capabilities (RAG, Pipelines, Agents, etc.)
+
 ## 📋 License
 
 MIT License — see [LICENSE](LICENSE) for details.
