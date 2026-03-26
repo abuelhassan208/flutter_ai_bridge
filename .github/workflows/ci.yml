@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       # We use Flutter SDK because some packages (ui, shared_prefs, example) require it,
       # but we can run Dart commands on pure-Dart packages.
@@ -21,7 +23,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.0' # Flutter 3.24 corresponds to Dart 3.5.0
+          flutter-version: '3.38.5' # Flutter 3.38 corresponds to Dart 3.10.4
           cache: true
 
       - name: Install Melos
